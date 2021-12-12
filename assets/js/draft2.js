@@ -1,6 +1,6 @@
 // PASSWORD GENERATOR //
 
-// TODO / OPTIONAL: clean up generatePassword into seperate functions.
+// TODO / OPTIONAL: seperate getPasswordLength and getCharacterSetInput from validation into seperate functions.
 
 var getPasswordLength = function() {
    // Defining min and max length for password input.
@@ -48,9 +48,7 @@ var randomizeCharacters = function(characterSet, passwordLength) {
 var generatePassword = function() {
     
     var passwordLength = getPasswordLength();
-    var characterSetInput = getCharacterSetInput();
-
-    
+    var characterSetInput = getCharacterSetInput();   
 
     // Character set type is defined by input, either: uppercase, lowercase, special, or numeric. 
     var numChar = ['0','1','2','3','4','5','6','7','8','9'];
@@ -58,11 +56,12 @@ var generatePassword = function() {
     var lowerChar = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
     var specialChar = ['"','`','~','!','@','#','$','%','^','&','*',',','_','-','+','=','<','>','.','?','/',':',';', '/','|','(',')','{','}'];
     var passwordOutput = '';
-    // TODO / OPTIONAL: Add variable for all characters OR multiple character inputs.
+    // TODO / OPTIONAL: Add variable for ALL characters OR multiple character inputs.
+    // TODO / OPTIONAL: Refactor characterSetInput further to reduce complexity.
 
     if (characterSetInput === 'uppercase'){
-        // user will select okay or confirm.
-        // use i < password to make sure number of iterations is appropriate for password length.
+        // User will select okay or confirm.
+        // Use i < password to make sure number of iterations is appropriate for password length.
         alert('You have selected uppercase characters.');
         return passwordOutput = randomizeCharacters(upperChar, passwordLength);
 
@@ -83,9 +82,6 @@ var generatePassword = function() {
         alert('Invalid selection; please type: uppercase, lowercase, numeric, or special.');
     }
 }
-
-
-
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
