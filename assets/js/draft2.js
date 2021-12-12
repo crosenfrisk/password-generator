@@ -2,23 +2,39 @@
 
 // TODO / OPTIONAL: clean up generatePassword into seperate functions.
 
-var generatePassword = function() {
-    // Create window prompting user to select password length given criteria.
-    var passwordLength = window.prompt('Please choose password length (min. 8, max. 128 characters):');
-    // TODO / OPTIONAL: Transform password length to number.
-    // Defining min and max length for password input.
-    var minLength = 8;
-    var maxLength = 128;
+var getPasswordLength = function() {
+   // Defining min and max length for password input.
+   var minLength = 8;
+   var maxLength = 128;
 
-    // Errors for validation include: input being < 8 or > 128 characters.
-    // TODO / OPTIONAL: input being NaN, input being null.
+   // Create window prompting user to select password length given criteria.
+   var passwordLength = window.prompt('Please choose password length (min. ' + minLength + ' and max. ' + maxLength +  ' characters):');
+   // TODO / OPTIONAL: Transform password length to number. 
+
+   // Errors for validation include: input being < 8 or > 128 characters.
+   // TODO / OPTIONAL: input being NaN, input being null.
     if (passwordLength < minLength || passwordLength > maxLength) {
         // If min/max criteria are not met, user is redirected with alert("error") message and starts over.
-        alert('Error! Please enter a number between 8 and 128!');
+        alert('Error! Please enter a number between ' + minLength + ' and ' + maxLength + '!');
     };
 
+   return passwordLength;
+}
+
+var getCharacterSetInput = function() {
     // If the criteria for password length is met, user is prompted then to select at least one character set type.
     var characterSetInput = window.prompt('Please select one of the following character types for your password: uppercase, lowercase, numeric, special.');
+    
+    return characterSetInput;
+}
+
+
+var generatePassword = function() {
+    
+    var passwordLength = getPasswordLength();
+    var characterSetInput = getCharacterSetInput();
+
+    
 
     // Character set type is defined by input, either: uppercase, lowercase, special, or numeric. 
     var numChar = ['0','1','2','3','4','5','6','7','8','9'];
