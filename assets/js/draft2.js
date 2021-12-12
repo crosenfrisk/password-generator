@@ -28,6 +28,22 @@ var getCharacterSetInput = function() {
     return characterSetInput;
 }
 
+var randomizeCharacters = function(characterSet, passwordLength) {
+    // initialize passwordOutput
+    var passwordOutput = '';
+
+    for (var i = 0; i < passwordLength; i++) {
+        // use method for generating a random whole number smaller than number of values in upperChar set.
+        var randomNumber = Math.floor(Math.random() * characterSet.length);
+            // use random number to pull character from each each character set.
+            var randomLetter = characterSet[randomNumber];
+                // append character to password output.
+                passwordOutput += randomLetter;
+                console.log(passwordOutput);
+    }
+    // Generated password will display on browser page either in window prompt or on screen.
+    return passwordOutput;
+}
 
 var generatePassword = function() {
     
@@ -45,72 +61,27 @@ var generatePassword = function() {
     // TODO / OPTIONAL: Add variable for all characters OR multiple character inputs.
 
     if (characterSetInput === 'uppercase'){
-        alert('You have selected uppercase characters.');
         // user will select okay or confirm.
         // use i < password to make sure number of iterations is appropriate for password length.
-        for (var i = 0; i < passwordLength; i++) {
-            // use method for generating a random whole number smaller than number of values in upperChar set.
-            var randomNumber = Math.floor(Math.random() * 26);
-                // use random number to pull character from upperChar[i].
-                var randomLetter = upperChar[randomNumber];
-                    // append character to password output.
-                    passwordOutput += randomLetter;
-                    console.log(passwordOutput);
-        }
-        // Generated password will display on browser page either in window prompt or on screen.
-            return passwordOutput;
+        alert('You have selected uppercase characters.');
+        return passwordOutput = randomizeCharacters(upperChar, passwordLength);
 
     } else if (characterSetInput === 'lowercase'){
         alert('You have selected lowercase characters.');
-        // user will select okay or confirm.
-        // use i < password to make sure number of iterations is appropriate for password length.
-        for (var i = 0; i < passwordLength; i++) {
-            // use method for generating a random whole number smaller than number of values in upperChar set.
-            var randomNumber = Math.floor(Math.random() * 26);
-                // use random number to pull character from lowerChar[i].
-                var randomLetter = lowerChar[randomNumber];
-                    // append character to password output.
-                    passwordOutput += randomLetter;
-                    console.log(passwordOutput);
-        }
-            return passwordOutput;
+        return passwordOutput = randomizeCharacters(lowerChar, passwordLength);
 
     } else if (characterSetInput === 'numeric'){
         alert('You have selected numeric characters.');
-        // user will select okay or confirm.
-        // use i < password to make sure number of iterations is appropriate for password length.
-        for (var i = 0; i < passwordLength; i++) {
-            // use method for generating a random whole number smaller than number of values in upperChar set.
-            var randomNumber = Math.floor(Math.random() * 10);
-                // use random number to pull character from numChar[i].
-                var randomLetter = numChar[randomNumber];
-                    // append character to password output.
-                    passwordOutput += randomLetter;
-                    console.log(passwordOutput);
-        }
-            return passwordOutput;
+        return passwordOutput = randomizeCharacters(numChar, passwordLength);
 
     } else if (characterSetInput === 'special'){
         alert('You have selected special characters.');
-        // user will select okay or confirm.
-        // use i < password to make sure number of iterations is appropriate for password length.
-        for (var i = 0; i < passwordLength; i++) {
-            // use method for generating a random whole number smaller than number of values in upperChar set.
-            var randomNumber = Math.floor(Math.random() * 29);
-                // use random number to pull character from specialChar[i].
-                var randomLetter = specialChar[randomNumber];
-                    // append character to password output.
-                    passwordOutput += randomLetter;
-                    console.log(passwordOutput);
-        }
-            return passwordOutput;
+        return passwordOutput = randomizeCharacters(specialChar, passwordLength);
 
     } else {
         // If character set type is not defined, user is given alert(error) message, and is prompted to select character type.
         alert('Invalid selection; please type: uppercase, lowercase, numeric, or special.');
     }
-
-
 }
 
 
