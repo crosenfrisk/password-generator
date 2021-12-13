@@ -10,21 +10,48 @@ var getPasswordLength = function() {
    // Create window prompting user to select password length given criteria.
    var passwordLength = window.prompt('Please choose password length (min. ' + minLength + ' and max. ' + maxLength +  ' characters):');
    // TODO / OPTIONAL: Transform password length to number. 
+   parseInt();
 
    // Errors for validation include: input being < 8 or > 128 characters.
-   // TODO / OPTIONAL: input being NaN, input being null.
+   // TODO / OPTIONAL: input being NaN, input being null or undefined.
     if (passwordLength < minLength || passwordLength > maxLength) {
         // If min/max criteria are not met, user is redirected with alert("error") message and starts over.
         alert('Error! Please enter a number between ' + minLength + ' and ' + maxLength + '!');
-    };
+        getPasswordLength();
+    } else if (passwordLength === null) {
+        alert('You must enter a valid number.');
+        getPasswordLength();
+    } else if (passwordLength === undefined) {
+        alert('You must enter a valid number.');
+        getPasswordLength();
+    } else if (passwordLength === NaN) {
+        alert('You must enter a valid number.');
+        getPasswordLength();
+    } else if (passwordLength === '') {
+        alert('You must enter a valid number.');
+        getPasswordLength();
+    }
+    ;
 
    return passwordLength;
 }
 
 var getCharacterSetInput = function() {
+    // define possible values for character type input
+    var characterTypeUpper = 'uppercase';
+    var characterTypeLower = 'lowercase';
+    var characterTypeNumeric = 'numeric';
+    var characterTypeSpecial = 'speical';
+    var characterTypes = characterTypeUpper + characterTypeLower + characterTypeNumeric + characterTypeSpecial;
+
     // If the criteria for password length is met, user is prompted then to select at least one character set type.
     var characterSetInput = window.prompt('Please select one of the following character types for your password: uppercase, lowercase, numeric, special.');
-    
+    // If character type is not properly selected, user is redirected with alert("error") message and starts over with getCharacterSetInput().
+    if (characterSetInput != characterTypes){
+        alert('Error! Please select a valid character type: uppercase, lowercase, numeric, or special.');
+        getCharacterSetInput();
+    };
+
     return characterSetInput;
 }
 
