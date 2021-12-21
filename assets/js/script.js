@@ -9,14 +9,16 @@ var getPasswordLength = function() {
 
   // Create window prompting user to select password length given criteria.
   var passwordLength = window.prompt('Please choose password length (min. ' + minLength + ' and max. ' + maxLength +  ' characters):');
-  // TODO / OPTIONAL: Transform password length to number. 
-
+  // TODO / OPTIONAL: Transform password length to number if string is typed. 
+  
   // Errors for validation include: input being < 8 or > 128 characters.
-  // TODO / OPTIONAL: input being NaN, input being null.
+
+  // TODO: input being NaN, input being null.
+  // TODO: make sure input is integar and does not progress to next step without correct password length input.
    if (passwordLength < minLength || passwordLength > maxLength) {
        // If min/max criteria are not met, user is redirected with alert("error") message and starts over.
        alert('Error! Please enter a number between ' + minLength + ' and ' + maxLength + '!');
-   };
+   }
 
   return passwordLength;
 }

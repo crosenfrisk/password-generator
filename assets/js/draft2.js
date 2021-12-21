@@ -7,32 +7,21 @@ var getPasswordLength = function() {
    var minLength = 8;
    var maxLength = 128;
 
-   // Create window prompting user to select password length given criteria.
-   var passwordLength = window.prompt('Please choose password length (min. ' + minLength + ' and max. ' + maxLength +  ' characters):');
-   // TODO / OPTIONAL: Transform password length to number. 
-   parseInt();
+   // Create window prompting user to select password length given criteria. Transform password length to number. 
+   var passwordLength = parseInt(window.prompt('Please choose password length (min. ' + minLength + ' and max. ' + maxLength +  ' characters):'));
+
+   if (!Number.isInteger(passwordLength)) {
+    alert('Error! Please enter a number between ' + minLength + ' and ' + maxLength + '!');
+    return getPasswordLength();
+}
 
    // Errors for validation include: input being < 8 or > 128 characters.
-   // TODO / OPTIONAL: input being NaN, input being null or undefined.
+   // TODO / OPTIONAL: input being NaN, input being null, undefined, or a letter.
     if (passwordLength < minLength || passwordLength > maxLength) {
         // If min/max criteria are not met, user is redirected with alert("error") message and starts over.
         alert('Error! Please enter a number between ' + minLength + ' and ' + maxLength + '!');
-        getPasswordLength();
-    } else if (passwordLength === null) {
-        alert('You must enter a valid number.');
-        getPasswordLength();
-    } else if (passwordLength === undefined) {
-        alert('You must enter a valid number.');
-        getPasswordLength();
-    } else if (passwordLength === NaN) {
-        alert('You must enter a valid number.');
-        getPasswordLength();
-    } else if (passwordLength === '') {
-        alert('You must enter a valid number.');
-        getPasswordLength();
-    }
-    ;
-
+        return getPasswordLength();
+    };
    return passwordLength;
 }
 
@@ -45,9 +34,18 @@ var getCharacterSetInput = function() {
     var characterTypes = characterTypeUpper + characterTypeLower + characterTypeNumeric + characterTypeSpecial;
 
     // If the criteria for password length is met, user is prompted then to select at least one character set type.
+
+    // HOW DO I GET THIS FUNCTION TO WORK?
+    var characterSetInput = function() {
+    var characterTypeSpecial = window.confirm('Would you like to use special characters in your password?');
+    var characterTypeUpper = window.confirm('Would you like to use uppercase characters in your password?');
+    var characterTypeLower = window.confirm('Would you like to use lowercase characters in your password?');
+    var characterTypeNumeric = window.confirm('Would you like to use numeric characters in your password?');
     var characterSetInput = window.prompt('Please select one of the following character types for your password: uppercase, lowercase, numeric, special.');
+    }
+    
     // If character type is not properly selected, user is redirected with alert("error") message and starts over with getCharacterSetInput().
-    if (characterSetInput != characterTypes){
+    if (characterSetInput === null || characterSetInput === undefined || characterSetInput === characterTypes || characterSetInput != characterSetInput){
         alert('Error! Please select a valid character type: uppercase, lowercase, numeric, or special.');
         getCharacterSetInput();
     };
@@ -75,39 +73,41 @@ var randomizeCharacters = function(characterSet, passwordLength) {
 var generatePassword = function() {
     
     var passwordLength = getPasswordLength();
-    var characterSetInput = getCharacterSetInput();   
-
+    // var characterSetInput = getCharacterSetInput();   
+    console.log(passwordLength);
     // Character set type is defined by input, either: uppercase, lowercase, special, or numeric. 
     var numChar = ['0','1','2','3','4','5','6','7','8','9'];
     var upperChar = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
     var lowerChar = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
     var specialChar = ['"','`','~','!','@','#','$','%','^','&','*',',','_','-','+','=','<','>','.','?','/',':',';', '/','|','(',')','{','}'];
+    var allChar = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z', 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','"','`','~','!','@','#','$','%','^','&','*',',','_','-','+','=','<','>','.','?','/',':',';', '/','|','(',')','{','}'];
     var passwordOutput = '';
+    
     // TODO / OPTIONAL: Add variable for ALL characters OR multiple character inputs.
     // TODO / OPTIONAL: Refactor characterSetInput further to reduce complexity.
 
-    if (characterSetInput === 'uppercase'){
-        // User will select okay or confirm.
-        // Use i < password to make sure number of iterations is appropriate for password length.
-        alert('You have selected uppercase characters.');
-        return passwordOutput = randomizeCharacters(upperChar, passwordLength);
+    // if (characterSetInput === 'uppercase'){
+    //     // User will select okay or confirm.
+    //     // Use i < password to make sure number of iterations is appropriate for password length.
+    //     alert('You have selected uppercase characters.');
+    //     return passwordOutput = randomizeCharacters(upperChar, passwordLength);
 
-    } else if (characterSetInput === 'lowercase'){
-        alert('You have selected lowercase characters.');
-        return passwordOutput = randomizeCharacters(lowerChar, passwordLength);
+    // } else if (characterSetInput === 'lowercase'){
+    //     alert('You have selected lowercase characters.');
+    //     return passwordOutput = randomizeCharacters(lowerChar, passwordLength);
 
-    } else if (characterSetInput === 'numeric'){
-        alert('You have selected numeric characters.');
-        return passwordOutput = randomizeCharacters(numChar, passwordLength);
+    // } else if (characterSetInput === 'numeric'){
+    //     alert('You have selected numeric characters.');
+    //     return passwordOutput = randomizeCharacters(numChar, passwordLength);
 
-    } else if (characterSetInput === 'special'){
-        alert('You have selected special characters.');
-        return passwordOutput = randomizeCharacters(specialChar, passwordLength);
+    // } else if (characterSetInput === 'special'){
+    //     alert('You have selected special characters.');
+    //     return passwordOutput = randomizeCharacters(specialChar, passwordLength);
 
-    } else {
-        // If character set type is not defined, user is given alert(error) message, and is prompted to select character type.
-        alert('Invalid selection; please type: uppercase, lowercase, numeric, or special.');
-    }
+    // } else {
+    //     // If character set type is not defined, user is given alert(error) message, and is prompted to select character type.
+    //     alert('Invalid selection; please type: uppercase, lowercase, numeric, or special.');
+    // }
 }
 
 // Get references to the #generate element
