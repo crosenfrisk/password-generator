@@ -6,7 +6,8 @@
 
 * [My Approach](#My-Approach)
 
-* [Lessons Learned ](#Lessons-Learned) | [What I Enjoyed](#What-I-Enjoyed)
+* [Lessons Learned ](#Lessons-Learned) | [Changes After Feedback](#Changes-After-Feedback) 
+* [What I Enjoyed](#What-I-Enjoyed)
 
 * [Code Improvement and Performance](#Code-Improvement-and-Performance) 
 
@@ -19,7 +20,7 @@
 
 ## PROJECT DESCRIPTION:
 
-This repository (Password-Generator) was created for a bootcamp challenge project. The original source code came from: [coding-boot-camp/friendly-parakeet](https://github.com/coding-boot-camp/friendly-parakeet). 
+This repository (Password-Generator) was created for a coding bootcamp challenge project. The original source code came from: [coding-boot-camp/friendly-parakeet](https://github.com/coding-boot-camp/friendly-parakeet). 
 
 I created a series of prompts guiding user input based on specific requirements (min/max length for password and selecting a character type). Using the selected criteria, as designated by the user, the written program displays the desired output: a randomized password.
 
@@ -30,13 +31,13 @@ I began by writing out the User Story and GIVEN, WHEN, THEN statements, which I 
 
 Using a white board also helped me anticipate places where user input error could occur, which helped me determine my `if() else {}` statements. 
 
-After I had my wireframe, I wrote out `//comments` in my `draft2.js` file, between which I added my relevent code. I tested my code along the way to make sure that it functioned the way I indended. Whenever something didn't work in the console, I knew that I needed to address it.
+After I had my wireframe, I wrote out `//comments` in my `draft2.js` file, between which I added my relevant code. I tested my code along the way to make sure that it functioned the way I intended. Whenever something didn't work in the console, I knew that I needed to address it.
 
 Once all my comments were addressed, I knew I had completed the project as requested by the GIVEN, WHEN, THEN statements to satisfy the User Story.
 
-Finally, I identifed opportunities for future development, which I labeled in comments as `TODO / OPTIONAL`, which I may revisit over time. I copied and pasted all my code from draft2.js into `script.js` and then changed the reference in `index.html` to reflect the redirect to `script.js`. I decided to keep the `startercode.js` as a reference point, but I could remove it and `draft2.js` to clean up the root directory.
+Finally, I identified opportunities for future development, which I labeled in comments as `TODO / OPTIONAL`, which I may revisit over time. I copied and pasted all my code from draft2.js into `script.js` and then changed the reference in `index.html` to reflect the redirect to `script.js`. I decided to keep the `startercode.js` as a reference point, but I could remove it and `draft2.js` to clean up the root directory.
 
-After writing the README.md and adding and committing everything from the develop branch one final time, I did a `git merge develop` on the main branch, I then pushed upstream to GitHub to `origin main` which results in the final project you are reading now.
+**After receiving feedback about the project** I learned that I still had some work to do. *[Read below for details.](#changes-after-feedback)*
 
 
 ## LESSONS LEARNED:
@@ -45,11 +46,33 @@ I learned that not all numbers typed in JavaScript are read as numeric input, an
 
 In the beginning when I was developing the `getPasswordLength` function I was given an error because the input entered was interpreted as a string and not a numeric value. To fix the error, I realized that I needed to take my numbers out of quotation marks. Upon reflection it seems silly that they were in quotation marks, but when I created my variables for character set type (`var numChar`, `var upperChar`, `var lowerChar`, `var specialChar`) all of which I chose to write as arrays, the items in which I typed in quotation marks, making them all strings!
 
+##  CHANGES AFTER FEEDBACK:
+
+When I submitted the project at the beginning of December 2021, I thought that the project was in working order. After I received feedback I became aware that I had not used Chrome DevTools as much as I needed to, nor had I addressed all the possibilities for errors through validation that were necessary. 
+
+Over the course of three weeks, I went through `script.js` and refined my initial functions:
+
+* `getPasswordLength()` needed to ensure that the user only input an integer as defined by the criteria in the prompt. `if (!Number.isInteger(passwordLength)){}` became a necessary addition to my code. Learning how to figure out a type of input was a step of the process. I learned that I did not need to address if input was NaN, null, or undefined in separate statements; the argument was simplified by simply stating if number is not an integer it needs to be re-entered. This eliminated a lot of redundant code / `if()` statements.
+
+* I deleted my first attempt at defining character types and moved the variables for `numChar`, `upperChar`, `lowerChar`, and `specialChar` inside the `passwordGenerate()` since they did not need to be in the global scope. 
+
+* I added `var chosenChar` as an array to hold selection from user input in response to the window.confirm questions.
+
+* I added `if()` statements for each character type selection.
+
+* The final `if()`statement was also crucial to address the possibility if the user did not select any character types, since the minimum requirement for creating the randomized password after selecting password length is choosing AT LEAST ONE character type. 
+
+* In writing the final `if()` statement I learned how to use the `&&` argument correctly to include ALL of the choices if false. The first way I wrote it was wrong: `if(chosenChar === false){}` ... my second attempt `if(characterTypeSpecial && characterTypeUpper && characterTypeLower && characterTypeNumeric === false) {}` returned undefined, but my third and final iteration of the statement as it is now in the code works like a charm! **Logically it makes sense now: IF each choice is false, then return the `alert("Error!")`. ✔️**
+
+* While I did not need to do this, I renamed the first param in `randomizeCharacters()` from `characterSet` to `chosenChar` just as reference, and likewise adjusted the `var randomNumber` and `var randomLetter` to match. The function worked with the before-named param and variables as they were, but I changed them just so it was clear on the back-end what I was referring to, since `characterSet` or `characterSetInput` no longer existed anywhere else in the code.
+
+* Lastly, I cleaned up the syntax of `script.js` file and removed excess comments and grayed-out / irrelevant functions and variables. 
+
 ## WHAT I ENJOYED:
 
-I enjoyed the refactoring process. I took the initial code from 116 lines down to 99. My biggest refactor was the `if (characterSetInput...)` section where the `else if() {}` statments were a little redundant. By identifying common parts within the code, I created new variables, `var passwordLength`  and `var characterSetInput` to use within the `generatePassword()` function, eliminating the need for completely spelled out for and if statements. You can view the original code under commit: [commit 2bf9a2ea4396597a9e542630a66efd59c8e9e8dc](https://github.com/crosenfrisk/password-generator/commit/2bf9a2ea4396597a9e542630a66efd59c8e9e8dc). 
+I enjoyed the refactoring process. I took the initial code from 116 lines down to 99. **After my most recent update, the `script.js` file it is now down to 96 lines.**
 
-*   *I could still refactor the code down further, but I feel like as it is now it is much more readable and it works, so I don't want to mess with it!*
+You can view the original code under commit: [commit 2bf9a2ea4396597a9e542630a66efd59c8e9e8dc](https://github.com/crosenfrisk/password-generator/commit/2bf9a2ea4396597a9e542630a66efd59c8e9e8dc).
   
 
 ## CODE IMPROVEMENT AND PERFORMANCE:
@@ -84,7 +107,9 @@ After downloading the project from GitHub to your local device, open the `passwo
 
 [Example of validation and if statement for number input] (http://jsfiddle.net/nZ37J/)
 
-Referenced JavaScript from in-class projects such as Taskinator, and Robot Gladiators.
+In-class projects such as Taskinator, and Robot Gladiators served as useful references for JavaScript.
+
+*Tutoring sessions with Julio Valdez clarified the purpose and function of `if()` statements. I learned learn how to ask the right questions, identifying keywords within the acceptance criteria to refine my code, better addressing the requirements of the project.*
 
 
 ## LICENSE:
